@@ -1,19 +1,23 @@
 <?php
-include 'conexao.php';
+session_start();
+if (isset($_SESSION['id_usuario'])) {
+    header('Location: balanco.php');
+}
 
+include 'conexao.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $login = $_POST["login"];
     $password = $_POST["password"];
-    $hash = password_hash($password, PASSWORD_BCRYPT);
-    $sql = "SELECT id, nome, login, email, hash FROM usuarios WHERE login = ?";
+    $sql = "SELECT id, nome, login, email, is_adm, hash FROM usuarios WHERE login = ?";
     $result = $conn->execute_query($sql, [$login]);
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row["hash"])) {
-            session_start();
+            
             $_SESSION["login"] = $login;
             $_SESSION["nome"] = $row["nome"];
             $_SESSION["id_usuario"] = $row["id"];
+            $_SESSION["is_adm"] = $row["is_adm"];
             $_SESSION["email"] = $row["email"];
 
             header('Location: balanco.php');
@@ -32,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="icon" type="image/x-icon" href="supplies.ico">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php } ?>
 
     <div class="info-box">
-        <form method="post">
+        <form method="post">          
             <p><input type='text' name='login' placeholder="Login" required></p>
             <p><input type='password' name='password' placeholder="Senha" required></p>
             <p><button type='submit'>Logar</button></p>

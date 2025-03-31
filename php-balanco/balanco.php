@@ -1,27 +1,56 @@
 <?php
+session_start();
+if (!isset($_SESSION['id_usuario'])) {
+    header('Location: index.php');
+}
+
 include 'conexao.php';
-
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['qtde'])) {
-    $qtdes = $_POST['qtde'];
+    if (isset($_POST['acao']) && $_POST['acao'] == "editar") {
+        //Editando o balanco existente
+        $qtdes = $_POST['qtde'];
 
-    $conn->begin_transaction();
-    try {
-        $sql = "INSERT INTO balanco (data_registro) VALUES (NOW())";
-        $conn->query($sql);
-        $balanco_id = $conn->insert_id;
-
-        $sql = "INSERT INTO balanco_produto (balanco_id, produto_id, 
-                    quantidade_aferida) VALUES (?, ?, ?)";
-        $stmt_insert = $conn->prepare($sql);
-        foreach ($qtdes as $produto_id => $qtde) {
-            $stmt_insert->bind_param("iii", $balanco_id, $produto_id, $qtde);
-            $stmt_insert->execute();
+        $conn->begin_transaction();
+        try {
+            $sql = "UPDATE balanco_produto SET quantidade_aferida = ? WHERE balanco_id = ? AND produto_id = ?";
+            $stmt_update = $conn->prepare($sql);
+            foreach ($qtdes as $produto_id => $qtde) {
+                $stmt_update->bind_param("iii", $qtde, $_POST['balanco_id'], $produto_id);
+                $stmt_update->execute();
+            }
+            $conn->commit();
+            $sucesso = true;
+            echo "<script>setTimeout(() => document.querySelector('.success-box').style.display='none', 2000);</script>";
+        } catch (Exception $e) {
+            $conn->rollback();
+            die("Não foi possível editar o balanço. Tente novamente mais tarde.");
         }
-        $conn->commit();
-        echo "<script>alert('Balanco salvo com sucesso!');</script>";
-    } catch (Exception $e) {
-        $conn->rollback();
-        die("Erro ao salvar balanco: " . $e->getMessage());
+    } else {
+        //Estamos inserindo um novo balanço
+        $qtdes = $_POST['qtde'];
+
+        $conn->begin_transaction();
+        try {
+            $sql = "INSERT INTO balanco (data_registro) VALUES (NOW())";
+            $conn->query($sql);
+            $balanco_id = $conn->insert_id;
+
+            $sql = "INSERT INTO balanco_produto (balanco_id, produto_id, 
+                    quantidade_aferida) VALUES (?, ?, ?)";
+            $stmt_insert = $conn->prepare($sql);
+            foreach ($qtdes as $produto_id => $qtde) {
+                if ($qtde > 0) {
+                    $stmt_insert->bind_param("iii", $balanco_id, $produto_id, $qtde);
+                    $stmt_insert->execute();
+                }
+            }
+            $conn->commit();
+            $sucesso = true;
+            echo "<script>setTimeout(() => document.querySelector('.success-box').style.display='none', 2000);</script>";
+        } catch (Exception $e) {
+            $conn->rollback();
+            die("Não foi possível salvar o balanço. Tente novamente mais tarde.");
+        }
     }
 }
 
@@ -34,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['qtde'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Inventário</title>
+    <link rel="icon" type="image/x-icon" href="supplies.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -69,6 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['qtde'])) {
 
         .actions {
             margin-top: 20px;
+            display: flex;
+            justify-content: center;
         }
 
         button {
@@ -102,20 +134,47 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['qtde'])) {
             width: 50px;
             font-size: 16px;
         }
+
+        .success-box {
+            border: 1px solid #4CAF50;
+            background-color: #f2f2f2;
+            color: #4CAF50;
+            margin-bottom: 15px;
+            padding: 15px;
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
 
+    <?php if (isset($sucesso)): ?>
+        <div class="success-box">
+            <p>Balanço salvo com sucesso!</p>
+        </div>
+    <?php endif; ?>
+
     <h2>Registro de Inventário</h2>
     <?php
-    $sql = "SELECT b.id, DATE_FORMAT(b.data_registro, '%d/%m/%Y (%H:%i)') as 
-                dt_formatada, SUM(bp.quantidade_aferida) as qtde_total
-            FROM balanco b 
-            JOIN balanco_produto bp ON bp.balanco_id = b.id
-            GROUP BY b.id,b.data_registro
-            ORDER BY b.data_registro DESC
-            LIMIT 1";
+
+    if (isset($_POST['acao']) && $_POST['acao'] == "preeditar") {
+        $editando = true;
+        $sql = "SELECT b.id, DATE_FORMAT(b.data_registro, '%d/%m/%Y (%H:%i)') as
+                    dt_formatada, SUM(bp.quantidade_aferida) as qtde_total
+                FROM balanco b 
+                JOIN balanco_produto bp ON bp.balanco_id = b.id
+                GROUP BY b.id,b.data_registro
+                HAVING b.id = {$_POST["balanco_id"]}";
+    } else {
+        $sql = "SELECT b.id, DATE_FORMAT(b.data_registro, '%d/%m/%Y (%H:%i)') as
+                    dt_formatada, SUM(bp.quantidade_aferida) as qtde_total
+                FROM balanco b 
+                JOIN balanco_produto bp ON bp.balanco_id = b.id
+                GROUP BY b.id,b.data_registro
+                ORDER BY b.data_registro DESC
+                LIMIT 1";
+    }
+
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $balanco_id = $row["id"];
@@ -125,10 +184,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['qtde'])) {
     <div class="info-box">
         <p><strong>Última Aferição:</strong> <?= $balanco_data ?></p>
         <p><strong>Quantidade Total Aferida:</strong> <?= $balanco_total ?> peças</p>
-        <button onclick="gerarRelatorio()"><i class="fas fa-file-alt"></i> Gerar Relatório</button>
+        <div class="actions">
+            <button onclick="window.location.href='logout.php'"><i class="fa-solid fa-power-off"></i> Logout </button>
+            <button onclick="abrirLink('relatorio.php')"><i class="fas fa-file-alt"></i> Relatório</button>
+            <button onclick="abrirLink('produtos.php')"><i class="fa-solid fa-warehouse"></i> Produtos</button>
+            <?php
+            if (isset($_SESSION['is_adm']) && $_SESSION['is_adm']) { ?>
+                <form method="pOsT">
+                    <input type="hidden" name="balanco_id" value="<?= $balanco_id ?>">
+                    <input type="hidden" name="acao" value="preeditar">
+                    <button><i class="fa-solid fa-pencil"></i> Editar</button>
+                </form>
+            <?php } ?>
+        </div>
     </div>
 
     <form method="POST">
+        <?php if (isset($editando)) { ?>
+            <input type="hidden" name="balanco_id" value="<?= $balanco_id ?>">
+            <input type="hidden" name="acao" value="editar">
+        <?php } ?>
         <table>
             <thead>
                 <tr>
@@ -142,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['qtde'])) {
                 <?php
                 $sql = "SELECT p.id, p.ean, p.nome, COALESCE(bp.quantidade_aferida, 0) as qtde
                     FROM produto p
-                    LEFT JOIN balanco_produto bp ON bp.produto_id = p.id 
+                    LEFT JOIN balanco_produto bp ON bp.produto_id = p.id
                         AND bp.balanco_id = {$balanco_id}
                     ORDER BY p.nome";
                 $result = $conn->query($sql);
@@ -156,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['qtde'])) {
                             <div class="quantity-box">
                                 <button type="button" onclick="alterarQuantidade(this, -1)"><i
                                         class="fas fa-minus"></i></button>
-                                <input type="number" class="qtde" name="qtde[<?= $row["id"] ?>]" min="0">
+                                <input type="number" class="qtde" name="qtde[<?= $row["id"] ?>]" min="0" <?= isset($editando) ? "value='{$row["qtde"]}'" : "" ?>>
                                 <button type="button" onclick="alterarQuantidade(this, 1)"><i
                                         class="fas fa-plus"></i></button>
                             </div>
@@ -184,15 +259,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['qtde'])) {
         }
 
         function resetar() {
+            x = 3;
             if (confirm("Tem certeza que deseja resetar os valores?")) {
                 document.querySelectorAll(".qtde")
                     .forEach(input => input.value = "");
             }
         }
 
-
-        function gerarRelatorio() {
-            window.open("relatorio.php", "_blank");
+        function abrirLink(pagina) {
+            window.open(pagina, "_blank");
         }
     </script>
 
