@@ -77,12 +77,25 @@ include "conexao.php";
             width: 50px;
             font-size: 16px;
         }
+
+        .success-box {
+            border: 1px solid #4CAF50;
+            background-color: #f2f2f2;
+            color: #4CAF50;
+            margin-bottom: 15px;
+            padding: 15px;
+            text-align: center;
+            display: none;
+        }
     </style>
 </head>
 
 <body>
 
     <h2>Registro de Inventário</h2>
+    <div class="success-box">
+        <p>Balanço salvo com sucesso!</p>
+    </div>
     <div class="info-box">
         <p>
             <strong>Última Aferição:</strong>
@@ -194,6 +207,7 @@ include "conexao.php";
             });
         }
 
+
         function alterarQuantidade(botao, delta) {
             let input = botao.parentElement.querySelector('input');
             let novaQuantidade = (input.value ? parseInt(input.value) : 0) + delta;
@@ -205,6 +219,7 @@ include "conexao.php";
                 // Aqui é contigo!!!
             }
         }
+        const successBox = document.querySelector('.success-box');
 
         async function salvar() {
             const form = document.querySelector('form');
@@ -216,6 +231,9 @@ include "conexao.php";
             });
 
             if (response.ok) {
+                successBox.style.display = 'block';
+                successBox.scrollIntoView();
+                setTimeout(() => successBox.style.display = 'none', 2000);
                 loadBalance();
             }
         }
