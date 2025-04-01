@@ -6,8 +6,6 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     exit;
 }
 
-var_dump($_POST);
-
 $conn->begin_transaction();
 try {
     $sql = "INSERT INTO balanco (data_registro) VALUES (NOW())";
@@ -22,7 +20,6 @@ try {
         $stmt_insert->bind_param("iii", $balanco_id, $produto_id, $produto_qtd);
         $stmt_insert->execute();
     }
-
     
     $conn->commit();
 } catch (Exception $e) {

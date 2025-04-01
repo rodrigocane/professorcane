@@ -112,7 +112,7 @@ include "conexao.php";
         </p>
         <button onclick="gerarRelatorio()"><i class="fas fa-file-alt"></i> Gerar Relatório</button>
         <br><br>
-        <select class="balanco-historico">
+        <select class="balanco-historico" id="balanco-historico">
             <option>Carregando ...</option>
         </select>
     </div>
@@ -144,7 +144,7 @@ include "conexao.php";
             <td>
                 <div class="quantity-box">
                     <button type="button" onclick="alterarQuantidade(this, -1)"><i class="fas fa-minus"></i></button>
-                    <input type="number" min="0" name="qtde[__ID__]" value="__QUANTIDADE__">
+                    <input type="number" min="0" name="qtde[__ID__]" >
                     <button type="button" onclick="alterarQuantidade(this, 1)"><i class="fas fa-plus"></i></button>
                 </div>
             </td>
@@ -191,8 +191,13 @@ include "conexao.php";
         }
         loadBalance();
 
-        function preencherHistorico(historico) {
-            const _select = document.querySelector('.balanco-historico');
+        const _select = document.querySelector('.balanco-historico');
+        _select.addEventListener('change', function() {
+            if (this.value == '') return;
+            loadProduct(this.value);
+        });
+
+        function preencherHistorico(historico) {            
             _select.innerHTML = '';
 
             const _option = document.createElement('option');

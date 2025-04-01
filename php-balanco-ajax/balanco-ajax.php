@@ -14,7 +14,8 @@ $row = $result->fetch_object();
 
 // *************************************************
 
-$sql_hist = "SELECT * FROM balanco ORDER BY id DESC";
+$sql_hist = "SELECT id, DATE_FORMAT(data_registro, '%d/%m/%Y (%H:%i)') as data_registro 
+             FROM balanco ORDER BY id DESC";
 $result_hist = $conn->query($sql_hist);
 $array_hist = [];
 
@@ -28,4 +29,6 @@ $return = array(
     'balanco' => $row,
     'historico' => $array_hist
 );
+
+sleep(2);
 echo json_encode($return);
