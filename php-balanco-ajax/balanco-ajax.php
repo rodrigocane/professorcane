@@ -1,6 +1,6 @@
 <?php
 include "conexao.php";
-
+//Alteração teste
 $sql = "SELECT b.id, DATE_FORMAT(b.data_registro, '%d/%m/%Y (%H:%i)') as data_formatada, 
             SUM(bp.quantidade_aferida) as qtde_total
         FROM balanco b
