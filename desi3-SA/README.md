@@ -7,39 +7,45 @@
 
 
 ## ⚙️ **Funcionalidades** ⚙️
-- 🔑 Usuários
-	- Login
+- 🔑 Usuários (Controle de sessão e de acessos)
+  	- DDL (Scripts para criação das tabelas de usuário já com ADM cadastrado) 📂
+	- Login/Logout
 	- Primeiro login ADM (troca de senha 🔑)
-	- Convite de usuário (e-mail 📧)
+	- Convite de usuário (e-mail 📧) ⚠
 	- Cadastro de usuário
-	- Busca cep 📬
-	- validação de e-mail 📧
+		- Busca cep 📬
+		- validação de e-mail 📧
 	- Esqueci minha senha 🔑 (e-mail 📧 & token uso unico)
 	- Gestão de usuários
-	- Perfis: ADM (1 só), Supervisor e usuário
-	- Logs do sistema (apenas para ADM e Supervisor)
-- 👥 Clientes
+		- Perfis: ADM (1 só), Supervisor e usuário
+    		- Rotinas "perigosas"/"importantes" serão acessíveis apenas pelo ADM e pelos supervisores ⚠
+	- Logs do sistema ⚠
+- 👥 Clientes (CRUD)
+  	- DDL (Scripts para criação das tabelas de clientes) 📂
 	- Cadastro de cliente
-	- Busca cep 📬
-	- Validação de e-mail 📧
-	- Listagem de clientes (filtros, paginação)
-	- Alteração de cliente (usuário comum só pode alterar cliente que ele cadastrou)
-	- Exclusão de Cliente usuário comum só pode excluir cliente que ele cadastrou)
+		- Busca cep 📬
+		- Validação de e-mail 📧
+	- Listagem de clientes (paginação)
+	- Alteração de cliente (usuário comum só pode alterar cliente que ele cadastrou) ⚠
+	- Exclusão de Cliente (usuário comum só pode excluir cliente que ele cadastrou) ⚠
 	- Importar ↙️ (Rodada bônus 📈)
-- 💌 Relacionamento
-	- Listagem de clientes (filtros, paginação) [Sim é a mesma do 2b]
+- 💌 Relacionamento (Recursos que realmente geram valor)
+	- Listagem de clientes (filtros) [complementando a funcionalidade desenvolvida no "módulo" Clientes]
 	- Exportar [precisa pelo menos uma] ↗️
-	- Excel (Rodada bônus 📈)
-	- JSON (Rodada bônus📈)
-	- PDF
+   		- PDF
+		- Excel (Rodada bônus 📈)
+		- JSON (Rodada bônus📈)
 	- Histórico/Anotações/Comentários sobre Clientes
-	- Pesquisa NPS (e-mail & token unico) (Rodada bônus 📈)
-- 💻 API REST (Rodada bônus 📈)
-	- GET
-	- GET id
-	- POST
-	- PUT
-	- DELETE
+	- Pesquisa NPS (e-mail 📧 & token unico) (Rodada bônus 📈) ⚠
+- 💻 API REST
+  	- Rotas 🗺️
+		- GET
+		- GET id
+		- POST
+		- PUT
+		- DELETE
+  	  	- GET com filtros (Rodada bônus 📈)
+	- Gestão de acesso (desenvolver algum recurso de segurança para acesso a API) ⚠
 
 
 ## 🤝 **Equipe** 🤝
@@ -56,7 +62,16 @@
 3. ~~Documentação~~ não quero documentação "oficial" não. 📕
 
 ## ✅ **DOs & DON'Ts** 🚫
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nessa SA vocês poderão fazer uso de inteligências artificiais generativas e templates da web. Kits de imagens e ícones também são aceitos. Pedir ajuda para os colegas de outras equipes também vale. Só não é aceito literalmente copiar o fonte de outras equipes ou utilizar Frameworks que “encurtem” o trabalho poupando-os de lidar com SQL (como Laravel). Também não é permitido usar outras linguagens de programação. A stack é PHP, HTML, JS, CSS e MySQL. Só faça em Python se você quiser zerar :}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nessa SA vocês poderão fazer uso de inteligências artificiais generativas e templates da web. Kits de imagens e ícones também são aceitos. Pedir ajuda para os colegas de outras equipes também vale. Só não é aceito literalmente copiar o fonte de outras equipes ou utilizar Frameworks que “encurtem” o trabalho poupando-os de lidar com SQL (como Laravel). Também não é permitido usar outras linguagens de programação. A stack é **PHP, HTML, JS, CSS e MySQL**. Só faça em Python se você quiser zerar :}
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O uso de localStorage será tolerado caso se faça extremamente necessário, mas nunca como substituto ao MySQL.
+
+## 💅 **UI** 💅
+- Não será exigido interface ~~nível Caio~~ super arrojada
+- Será exigido
+	- Alguma cor (pelo menos um pouco de estilo 🏳️‍🌈)
+   	- Padronização (todas as telas devem parecer ser do mesmo sistema 🧩)
+   	- Controle via JS de eventos no Front End
 
 ## 🗓️ **Sugestão de organização de atividades** 🗓️
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Comecem projetando o banco de dados. Pensem em quais telas o sistema terá. Pensem em como será cada tela (como serão os formulários? como serão os botões? Vai ter rodapé, topo, barra esquerda recolhível?). Em seguida, tente identificar que conhecimentos você deveria ter para conseguir fazer tudo isso e então peça pro professor focar as próximas aulas nesses temas.
