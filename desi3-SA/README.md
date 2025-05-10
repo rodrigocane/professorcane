@@ -73,5 +73,9 @@
    	- Padronização (todas as telas devem parecer ser do mesmo sistema 🧩)
    	- Controle via JS de eventos no Front End
 
-## 🗓️ **Sugestão de organização de atividades** 🗓️
+## 📑 **Sugestão de organização de atividades** 📑
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Comecem projetando o banco de dados. Pensem em quais telas o sistema terá. Pensem em como será cada tela (como serão os formulários? como serão os botões? Vai ter rodapé, topo, barra esquerda recolhível?). Em seguida, tente identificar que conhecimentos você deveria ter para conseguir fazer tudo isso e então peça pro professor focar as próximas aulas nesses temas.
+
+
+## 🗓️ **Calendário Oficial** 🗓️
+Consulte o [Calendário oficial](https://rodrigocane.github.io/) para se organizar. Mas atenção: esse calendário está sujeito a alterações sem aviso prévio conforme o engajamento da turma!
