@@ -14,7 +14,8 @@ INSERT INTO `regiao` (`id`, `nome`) VALUES
 (2, 'Nordeste'),
 (3, 'Centro-Oeste'),
 (4, 'Sudeste'),
-(5, 'Sul');
+(5, 'Sul'),
+(6, '???');
 
 -- Estrutura da tabela "estado"
 CREATE TABLE `estado` (
@@ -26,13 +27,6 @@ CREATE TABLE `estado` (
   `ddd` varchar(50) DEFAULT NULL,
   `id_regiao` INT DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Unidades Federativas';
-
-CREATE TABLE `partida` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`jogador` varchar(100) NOT NULL,
-	`num_rodadas` int(11) DEFAULT 10,
-	PRIMARY KEY (id)
-);
 
 -- Inserindo dados na tabela "estado"
 INSERT INTO `estado` (`id`, `nome`, `uf`, `ibge`, `pais`, `ddd`) VALUES
@@ -5693,3 +5687,29 @@ INSERT INTO `cidade` (`id`, `nome`, `uf`, `ibge`) VALUES
 -- Indexes for table "cidade"
 ALTER TABLE `cidade`
   ADD PRIMARY KEY (`id`);
+  
+  
+--Área do jogo
+CREATE TABLE `partida` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`jogador` varchar(100) NOT NULL,
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE `rodada` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`id_partida` int(11) NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (id_partida) REFERENCES partida(id)
+);
+
+CREATE TABLE `rodada_alternativa` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`id_rodada` int(11) NOT NULL,
+	`id_cidade` int(11) NOT NULL, /*cidade sorteada*/
+	`id_regiao` int(11) NOT NULL, /*região escolhida pelo usuário*/
+	PRIMARY KEY (id),
+	FOREIGN KEY (id_rodada) REFERENCES rodada(id),
+	FOREIGN KEY (id_cidade) REFERENCES cidade(id),
+	FOREIGN KEY (id_regiao) REFERENCES regiao(id)
+);
