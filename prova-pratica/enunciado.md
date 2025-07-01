@@ -103,10 +103,11 @@ Além disso, você precisará criar tabelas para armazenar:
 
 ## 📎 Materiais de Apoio
 - 📦 Base de dados com as municípios e também as estruturas sugeridas. Fique à vontade para alterar esta estrutura conforme seu estilo de programação.  
-  [🔗 Clique aqui para baixar](#) *(substitua com o link real)*
+https://github.com/rodrigocane/professorcane/blob/main/prova-pratica/base.sql
 
 - 🎨 Layout sugerido da tela do jogo:  
-  [🔗 Clique aqui para baixar](#) *(substitua com o link real)*
+  https://github.com/rodrigocane/professorcane/blob/main/prova-pratica/index.php
+  https://github.com/rodrigocane/professorcane/blob/main/prova-pratica/jogo.php
 
 
 
