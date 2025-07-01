@@ -5689,27 +5689,34 @@ ALTER TABLE `cidade`
   ADD PRIMARY KEY (`id`);
   
   
---Área do jogo
 CREATE TABLE `partida` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`jogador` varchar(100) NOT NULL,
-	PRIMARY KEY (id)
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`jogador` VARCHAR(100) NOT NULL,
+	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `rodada` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`id_partida` int(11) NOT NULL,
-	PRIMARY KEY (id),
-	FOREIGN KEY (id_partida) REFERENCES partida(id)
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`id_partida` INT(11) NOT NULL,
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`id_partida`) REFERENCES `partida`(`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
 );
 
 CREATE TABLE `rodada_alternativa` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`id_rodada` int(11) NOT NULL,
-	`id_cidade` int(11) NOT NULL, /*cidade sorteada*/
-	`id_regiao` int(11) NOT NULL, /*região escolhida pelo usuário*/
-	PRIMARY KEY (id),
-	FOREIGN KEY (id_rodada) REFERENCES rodada(id),
-	FOREIGN KEY (id_cidade) REFERENCES cidade(id),
-	FOREIGN KEY (id_regiao) REFERENCES regiao(id)
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`id_rodada` INT(11) NOT NULL,
+	`id_cidade` INT(11) NOT NULL, -- cidade sorteada
+	`id_regiao` INT(11) NOT NULL, -- região escolhida pelo usuário
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`id_rodada`) REFERENCES `rodada`(`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	FOREIGN KEY (`id_cidade`) REFERENCES `cidade`(`id`)
+		ON DELETE RESTRICT
+		ON UPDATE CASCADE,
+	FOREIGN KEY (`id_regiao`) REFERENCES `regiao`(`id`)
+		ON DELETE RESTRICT
+		ON UPDATE CASCADE
 );
