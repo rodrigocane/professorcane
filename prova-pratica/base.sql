@@ -1599,7 +1599,8 @@ INSERT INTO `cidade` (`id`, `nome`, `uf`, `ibge`) VALUES
 (1517, 'Douradina', 12, 5003504),
 (1518, 'Dourados', 12, 5003702),
 (1519, 'Eldorado', 12, 5003751);
---Vamo dá um fôlego pro BD
+
+
 INSERT INTO `cidade` (`id`, `nome`, `uf`, `ibge`) VALUES
 (1520, 'Fátima do Sul', 12, 5003801),
 (1521, 'Figueirão', 12, 5003900),
@@ -3042,7 +3043,8 @@ INSERT INTO `cidade` (`id`, `nome`, `uf`, `ibge`) VALUES
 (2959, 'Jardim Alegre', 18, 4112504),
 (2960, 'Jardim Olinda', 18, 4112603),
 (2961, 'Jataizinho', 18, 4112702);
---Mais um pouco
+
+
 INSERT INTO `cidade` (`id`, `nome`, `uf`, `ibge`) VALUES
 (2962, 'Jesuítas', 18, 4112751),
 (2963, 'Joaquim Távora', 18, 4112801),
@@ -4462,7 +4464,8 @@ INSERT INTO `cidade` (`id`, `nome`, `uf`, `ibge`) VALUES
 (4378, 'Ouro Preto do Oeste', 21, 1100155),
 (4379, 'Parecis', 21, 1101450),
 (4380, 'Pimenta Bueno', 21, 1100189);
---Caramba não acaba nunca?
+
+
 INSERT INTO `cidade` (`id`, `nome`, `uf`, `ibge`) VALUES
 (4381, 'Pimenteiras do Oeste', 21, 1101468),
 (4382, 'Porto Velho', 21, 1100205),
@@ -5684,7 +5687,7 @@ INSERT INTO `cidade` (`id`, `nome`, `uf`, `ibge`) VALUES
 (5609, 'Pescaria Brava', 24, 4212650),
 (5610, 'Exterior', 99, 9999999);
 
--- Indexes for table "cidade"
+
 ALTER TABLE `cidade`
   ADD PRIMARY KEY (`id`);
   
@@ -5693,30 +5696,22 @@ CREATE TABLE `partida` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`jogador` VARCHAR(100) NOT NULL,
 	PRIMARY KEY (`id`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `rodada` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`id_partida` INT(11) NOT NULL,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_partida`) REFERENCES `partida`(`id`)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `rodada_alternativa` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`id_rodada` INT(11) NOT NULL,
-	`id_cidade` INT(11) NOT NULL, -- cidade sorteada
-	`id_regiao` INT(11) NOT NULL, -- região escolhida pelo usuário
+	`id_cidade` INT(11) NOT NULL, /* cidade sorteada */
+	`id_regiao` INT(11) NOT NULL, /* região escolhida pelo usuário */
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`id_rodada`) REFERENCES `rodada`(`id`)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE,
-	FOREIGN KEY (`id_cidade`) REFERENCES `cidade`(`id`)
-		ON DELETE RESTRICT
-		ON UPDATE CASCADE,
+	FOREIGN KEY (`id_rodada`) REFERENCES `rodada`(`id`),
+	FOREIGN KEY (`id_cidade`) REFERENCES `cidade`(`id`),
 	FOREIGN KEY (`id_regiao`) REFERENCES `regiao`(`id`)
-		ON DELETE RESTRICT
-		ON UPDATE CASCADE
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
