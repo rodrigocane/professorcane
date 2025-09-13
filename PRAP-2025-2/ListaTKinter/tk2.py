@@ -22,14 +22,7 @@ def proximo_ciclo():
         root_tk2.after(ciclo_curto, proximo_ciclo)
     agora = time.time()
     print(f"[{agora - inicio:05.2f}s] -> S1: {s1.cor.name}, S2: {s2.cor.name}")
-
     
-
-def avancar_tudo():
-    s1.avancar_cor()
-    s2.avancar_cor()
-    root_tk2.after(3000, avancar_tudo)
-
 root_tk2 = tk.Tk()
 root_tk2.title("Semáforo Lindo")
 

@@ -2,6 +2,7 @@ from enum import Enum
 import tkinter as tk
 
 class SemaforoCor(Enum):
+    '''Enum que representa as cores de um semáforo, trazendo os valores (ativo,inativo)'''
     VERMELHO = ("#FF0000", "#4D0000")    
     AMARELO = ("#FFFF00", "#4D4D00")
     VERDE = ("#00FF00", "#004D00")
