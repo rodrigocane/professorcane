@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% import "macros.html" as ui %}
+{% block title %}Bem-vindo{% endblock %}
+
+{% block content %}
+<h2>Olá {{ nome }}!</h2>
+<form method="post" action="{{ url_for('logout') }}">
+  {{ ui.botao("Logout", "danger") }}
+</form>
+{% endblock %}
