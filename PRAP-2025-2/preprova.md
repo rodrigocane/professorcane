@@ -42,15 +42,6 @@ armazene-os em uma **lista** e calcule a média usando a função.
 
 💡 *Dica: use `map(int, input().split())` para ler vários números de uma
 vez.*
-
-``` python
-def media(lista):
-    return sum(lista) / len(lista)
-
-numeros = list(map(int, input("Digite 3 números: ").split()))
-print("Média =", media(numeros))
-```
-
 ------------------------------------------------------------------------
 
 ## ✅ Exercício 2 --- POO
@@ -69,20 +60,6 @@ No programa principal:
 
 2. Aplique um desconto de 10% e mostre o novo preço
 
-``` python
-class Produto:
-    def __init__(self, nome, preco):
-        self.nome = nome
-        self.preco = preco
-    
-    def desconto(self, porcentagem):
-        self.preco -= self.preco * (porcentagem / 100)
-
-p = Produto("Caneta", 5.0)
-p.desconto(10)
-print("Novo preço:", p.preco)
-```
-
 ------------------------------------------------------------------------
 
 ## ✅ Exercício 3 --- Pandas
@@ -97,23 +74,6 @@ Com o Pandas, faça um mini relatório de vendas:
 
 4.  Use `groupby` para mostrar a soma de vendas por produto.
 
-``` python
-import pandas as pd
-
-dados = {
-    "produto": ["Caneta", "Lápis", "Caneta", "Caderno"],
-    "quantidade": [3, 2, 1, 4]
-}
-df = pd.DataFrame(dados)
-
-df["preco_unit"] = [2.0, 1.5, 2.0, 10.0]
-df["total"] = df["quantidade"] * df["preco_unit"]
-
-print(df)
-print("\nVendas por produto:")
-print(df.groupby("produto")["total"].sum())
-```
-
 ------------------------------------------------------------------------
 
 ## ✅ Exercício 4 --- Tkinter
@@ -127,27 +87,6 @@ Monte uma interface simples com Tkinter que tenha:
 - Um **Label** que exibe `"Olá, <nome>"` quando o botão é clicado
 
 💡 *Reforce o uso de `grid()` e mostre a diferença se usar `pack()`.*
-
-``` python
-import tkinter as tk
-
-def mostrar():
-    nome = entrada.get()
-    label.config(text=f"Olá, {nome}!")
-
-root = tk.Tk()
-
-entrada = tk.Entry(root)
-entrada.grid(row=0, column=0)
-
-botao = tk.Button(root, text="Mostrar", command=mostrar)
-botao.grid(row=0, column=1)
-
-label = tk.Label(root, text="")
-label.grid(row=1, column=0, columnspan=2)
-
-root.mainloop()
-```
 
 ------------------------------------------------------------------------
 
