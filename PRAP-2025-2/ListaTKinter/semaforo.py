@@ -47,3 +47,4 @@ class Semaforo(tk.Frame):
     def avancar_cor(self):
         """Muda a cor para a próxima na sequencia"""
         self.acender(self.proxima_cor())
+
