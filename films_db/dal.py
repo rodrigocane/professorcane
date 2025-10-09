@@ -38,7 +38,7 @@ class FilmeDAL:
             filme.titulo_portugues,
             filme.ano_lancamento,
             filme.link,
-            filme.opiniao
+            filme.opiniao.value
         )
         
         cursor.execute(sql, valores)
@@ -56,6 +56,21 @@ class FilmeDAL:
         
         sql = "SELECT id, titulo_original, titulo_portugues, ano_lancamento, link, opiniao FROM filme WHERE id = %s"
         cursor.execute(sql, (filme_id,))
+        
+        registro = cursor.fetchone()
+        cursor.close()
+        conn.close()
+        
+        return self._obter_filme_do_registro(registro)
+
+    # R - READ (Busca por pedaço do titulo)
+    def buscar_por_titulo(self, titulo):
+        """Busca um filme por um trecho do título (original)."""
+        conn = criar_conexao()
+        cursor = conn.cursor()
+        
+        sql = "SELECT id, titulo_original, titulo_portugues, ano_lancamento, link, opiniao FROM filme WHERE titulo_original LIKE %s"
+        cursor.execute(sql, (f"%{titulo}%",))
         
         registro = cursor.fetchone()
         cursor.close()
@@ -100,7 +115,7 @@ class FilmeDAL:
             filme.titulo_portugues,
             filme.ano_lancamento,
             filme.link,
-            filme.opiniao,
+            filme.opiniao.value,
             filme.id
         )
         
