@@ -34,7 +34,7 @@ Entre as tarefas a concluir:
 - Finalizar **todas as operações CRUD** (`cadastrar`, `editar`, `excluir`)  
 - Implementar a **transferência de valores** entre contas  
 - Criar **listagem de operações** com informações de origem, destino, valor e data  
-- Tornar a listagem de contas a **tela principal** da aplicação  
+- Tornar a listagem de contas a **tela principal** da aplicação. Ou seja, o o `exibir_menu` deveria antes listar todas as contas e seus respectivos saldos.
 - Garantir que as regras de negócio sejam respeitadas em todas as ações (ex: não permitir saldo negativo em transferências, IDs válidos, etc.)
 
 ---
