@@ -1,7 +1,7 @@
 import mysql.connector
 
 DB_HOST = "localhost"
-DB_PORT = 3406
+DB_PORT = 3306
 DB_USER = "root"
 DB_PASSWORD = ""
 
@@ -36,7 +36,7 @@ def bd_init(DB_NAME) -> bool:
         conn.close()
         
         try:
-            conn_db = criar_conexao()
+            conn_db = criar_conexao(DB_NAME)
             cursor_db = conn_db.cursor()
             
             with open(f"{DB_NAME}.sql", 'r', encoding='utf-8') as f:

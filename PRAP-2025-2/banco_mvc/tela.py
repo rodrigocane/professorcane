@@ -52,7 +52,7 @@ class Tela:
         titular = input("Titular: " if cadastrando else f"Titular ({conta.titular})")
         titular = conta.titular if titular.strip() else titular
         saldo = 0 #vc faz essa cansei rs
-        return conta
+        return Conta(numero=numero, titular=titular, digito=digito)
     
     def exibir_tela_operacao(self):
         print("Fazendo uma operação daora")
