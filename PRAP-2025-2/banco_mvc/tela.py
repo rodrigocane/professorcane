@@ -20,7 +20,7 @@ class Tela:
         print("O - Realizar Operação")
         print("R - Listar Operações")
         opcao = input("Opção: ")
-        match opcao:
+        match opcao.upper():
             case "C":
                 self.controller.cadastrar_conta()
             case "U":
@@ -50,7 +50,7 @@ class Tela:
         digito = input("Digito: " if cadastrando else f"Digito ({conta.digito})")
         digito = conta.digito if not digito.isnumeric() or int(digito) > 9 else digito
         titular = input("Titular: " if cadastrando else f"Titular ({conta.titular})")
-        titular = conta.titular if titular.strip() else titular
+        titular = conta.titular if not titular.strip() else titular
         saldo = 0 #vc faz essa cansei rs
         return Conta(numero=numero, titular=titular, digito=digito)
     
