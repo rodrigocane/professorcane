@@ -40,7 +40,7 @@
         dicionario["nome"] = "João" # Agora sobrescreveu o nome.
         print(dicionario["nome"]) # Vai imprimir "João"
         ```
-    -   Funções de controle (if/elif/else/ternário)
+    -   Funções de controle (if, elif, else, ternário, switch/case)
     -   ```python
         if nota >= 7: #7 ou mais
           print("Passou!")
@@ -52,6 +52,15 @@
         # Ternário - if/else em uma linha. Nível Sênior de qualidade!
         dia_semana = datetime.now().weekday() (Segunda = 0 Domingo = 6)        
         print("Fds" if dia_semana in (5, 6) else "Dia de semana")
+
+        # Switch/case - que no Python diferentão é Match/case
+        match(dia_semana):
+            case 5:
+                print("Sábadão")
+            case 6:
+                print("Domingou")
+            case _: #se for qualquer outra coisa que não 5 ou 6, entra aqui
+                print("VAI TRABAIÁ!")
         ```
     -   funções de repetição (for, foreach)
     -   ```python
@@ -88,8 +97,10 @@
  
  1. Monte um programa que pergunte o nome e depois a idade do usuário. Se o usuário for maior de 18 anos, imprima "Já sabe dirigir?". Caso contrário imprima "Vc é uma criança ainda. Aproveite!"
  2. Monte um programa que imprima uma série de frutas que você gosta e o preço por quilo aproximado de cada uma delas (não precisa consultar o valor real no site do Giassi. Coloca qualquer coisa ae)
- 3. Monte um programa que pergunte ao usuário "Par ou ímpar". Depois peça um número de 0 a 5. Sorteie um número de 0 a 5 (usando o módulo `random`) e então diga se o usuário ganhou ou perdeu no par ou ímpar. Mas fique atento: tem usuário desatento que vai digitar "impar" quando vc pedir "Par ou Ímpar". Tem usuário engraçadinho que vai digitar "Pocahontas". No número mema coisa: vai ter gente digitando 11, vai ter gente digitando "dois". Prepare seu código pra esses engraçadinhos e/ou desatentos!
- 4. Monte um programa que pergunte ao usuário "Quantas notas?". Então faça um loop para armazenar cada nota. Por fim, calcule a média das notas e imprima:      
+ 3. Monte um programa que peça ao usuário para digitar um número de 2 a 6 e use match/case para imprimir o dia da semana correspondente (2 é segunda, 3 é terça etc). Repreenda o usuário se ele digitar um valor inválido.
+ 4. Monte um programa que pergunte ao usuário "Par ou ímpar". Depois peça um número de 0 a 5. Sorteie um número de 0 a 5 (usando o módulo `random`) e então diga se o usuário ganhou ou perdeu no par ou ímpar. Mas fique atento: tem usuário desatento que vai digitar "impar" quando vc pedir "Par ou Ímpar". Tem usuário engraçadinho que vai digitar "Pocahontas". No número mema coisa: vai ter gente digitando 11, vai ter gente digitando "dois". Prepare seu código pra esses engraçadinhos e/ou desatentos!
+ 5. Monte um programa que sorteia um número de 1 a 100 (mas não informe o usuário). Na sequencia, dê 15 chances pro usuário adivinhar o número. A cada chute errado dê uma dica e bote uma pressão (ex: "Chuta mais alto! Tentativa #9 já era!"). Se acabarem as tentativas, imprima duras palavras pra que o usuário perceba o quão limitado seu intelecto é! Mas se ele acertar, dê os parabéns!
+ 6. Monte um programa que pergunte ao usuário "Quantas notas?". Então faça um loop para armazenar cada nota. Por fim, calcule a média das notas e imprima:      
     - "C é o bichão memo hein doido?" para alunos nota 10.
     
     - "Parabéns" pra 9.9 até 8.
