@@ -21,9 +21,9 @@
         ```
     -  `input` -> Pedindo informações ao usuário
     -   ```python
-        idade = ("Quantos anos vc tem?") # Imprime a frase e joga o que for digitado pra variável idade
+        idade = input("Quantos anos vc tem?") # Imprime a frase e joga o que for digitado pra variável idade
         if idade == 18: # Esse if NUNCA será verdadeiro pois se o usuário digitar 18, a variável terá "18"
-        alunos_str = ("Digite o nome dos alunos (separados por espaço)")
+        alunos_str = input("Digite o nome dos alunos (separados por espaço)")
         #Captura até digitar enter. Ex: se o usuário digitar "Ana Bea    Cris" tudo isso ficará na alunos_str
         alunos = alunos_str.split() #Agora quebramos a string em uma lista de strings. Cada espaço é uma "quebra"
         #Obs: o terceiro elemento da lista será "Cris". Os espaços a mais ali vão sumir no split        
@@ -50,7 +50,7 @@
           print("💀 n00b")
 
         # Ternário - if/else em uma linha. Nível Sênior de qualidade!
-        dia_semana = datetime.now().weekday() (Segunda = 0 Domingo = 6)        
+        dia_semana = datetime.now().weekday() # (Segunda = 0 Domingo = 6)        
         print("Fds" if dia_semana in (5, 6) else "Dia de semana")
 
         # Switch/case - que no Python diferentão é Match/case
@@ -68,9 +68,16 @@
           print("Loop ", i, end='. ') #Loop  0. Loop  1. Loop  2.
         for i in range(3,6): #Começa no 3 e vai até o 5. 
           print("Loop ", i, end='. ') #Loop  3. Loop  4. Loop  5.
+        for i in range(6,14,2): #Loop com step=2 (vai de 2 em 2)
+          print("Loop ", i, end='. ') #Loop  6. Loop  8. .... Loop  12
+        for i in reversed(range(3)): #Contagem regressiva de 2 a 0
+          print("Loop ", i, end='. ') #Loop 2. Loop 1. Loop 0.
         apelidos = ["Ana", "Bea", "Cris", 171]
         for apelido in apelidos: #Conhecido como foreach, preenche cada elemento da estrutura
             print("Olá, ", apelido)
+        apelidos = ["Ana", "Bea", "Cris", 171]
+        for index, apelido in enumerate(apelidos): #Com enumerate podemos usar o índice tb
+            print(f"Vc é o {index+1} da fila, {apelido}") #Lembra que o primeiro vai ter index=0 né?
         ```
     -   Import -> Recomenda-se colocar todos os imports nas primeiras linhas do arquivo
     -   ```python
