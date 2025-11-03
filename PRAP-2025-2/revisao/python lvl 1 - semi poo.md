@@ -1,4 +1,8 @@
 # 🌿 Programação Python nível 1 - Cada um no seu ◻
+Usamos **funções**, **classes** e **módulos** para organizar e reutilizar código, evitando repetição e facilitando manutenção.
+A **Programação Orientada a Objetos (POO)** vai além: permite modelar o mundo real em código, criando objetos com dados e comportamentos próprios.
+Assim, o código fica mais legível, escalável e fácil de expandir sem bagunçar o que já funciona. (*GPT, Chat. 2025*)    
+
 
 -   **Funções, classes, módulos**
     -   Funções -> Funções encapsulam trechos de código reutilizáveis. Podem receber parâmetros e podem retornar valores
@@ -17,7 +21,7 @@
                 return #Aqui o return está sendo usado para interromper a função
             print(f"Bom dia {nome}")        
         ```
-    - Parâmetros e retornos: nível 2
+    - Parâmetros e retornos: nível 2 -> Tipagem e opcional
     - ```python
         def print_soma(a:int, b:int): #Agora deixamos claro que o esperado é que "a" seja um int
            print(a+b)
@@ -27,11 +31,27 @@
 
         def saudacao(nome: str, saudacao: str = "Olá"): #saudacao é um parâmetro opcional
             print(f"{saudacao}, {nome}!")
-
         saudacao("Rodrigo")          # Olá, Rodrigo!
         saudacao("Caio", "Salve")    # Salve, Caio!
-      ```
+
+        def quadrado(num: int) -> int: #Parâmetro e Retorno tipado
+          return num * num
+
+       # Parâmetros tipados, parâmetros opcionais, retorno tipado
+       def calc_media(notas: list[float], arredondar: bool = False, decimais: int = 2) -> float:
+           media = sum(notas) / len(notas)
+           return round(media, decimais) if arredondar else media
         
+       notas = [8.5, 9.2, 7.9]
+       print(calc_media(notas))        # 8.533333333333333 => como se chamasse com (notas,False, 2)
+       print(calc_media(notas, True))  # 8.53 => como se chamasse com (notas,True, 2)
+       print(calc_media(notas, True,4))# 8.5333      
+      ```
+   - Parâmetros e retornos: nível 3
+   - ```python
+        def divisao_inteira(dividendo: int, quociente: int) -> (int, int)
+     ```
+   - ??? 
 
   👷👷👷👷
   👷 WIP 👷
