@@ -35,6 +35,7 @@ Assim, o código fica mais legível, escalável e fácil de expandir sem bagunç
 			
 		saudacao("Rodrigo")          # Olá, Rodrigo!
 		saudacao("Caio", "Salve")    # Salve, Caio!
+     	saudacao(saudacao:"Dae", nome: "Camilla") # Dae, Camilla
 
 		def quadrado(num: int) -> int: #Parâmetro e Retorno tipado
 			return num * num
