@@ -152,16 +152,34 @@ Assim, o código fica mais legível, escalável e fácil de expandir sem bagunç
         from math import pi, sqrt, floor
 
         print(datetime.date.today()) #Chamando no formato modulo.classe.método()
-        tela = tk.Tk() #Aqui demos um apelido pro módulo então ficou apelidoDoModulo.construtor()
-        print(f"{pi} {sqrt(16)} {floor(3.99)}") #Importamos uma constante (pi) e duas funções do Math.
-        #Aqui o Python já sabe que o sqrt é lá do math, não precisa chamar pelo nome completo
-        
-        
+        tela = tk.Tk() #Aqui demos um apelido pro módulo então ficou apelidoDoModulo.método() [que no caso é um construtor]
+        print(f"{pi} {sqrt(16)} {floor(3.99)}") #Importamos uma constante (pi) e duas funções do módulo math.
+        #Aqui o Python já sabe que o sqrt é lá do math, não precisa chamar pelo nome completo        
         ```
+	-   ```python
+        #Só pra reforçar: esse import traz tudo pra dentro do teu código. 
+        from semaforo import *
+     	s1 = Semaforo(self) #Aqui dá pra usar o construtor Semaforo como se tivesse sido definido no arquivo atual
+     	#Mas assim vai dar ruim se o teu arquivo atual tb tiver uma classe Semaforo
+
+		#Com esse import está tudo disponível, mas só se falar o "nome completo" ou dar um apelido (e usá-lo)
+        import semaforo
+     	s1 = semaforo.Semaforo(self) #Chamando semaforo do módulo importado semaforo
+
+     	import semaforo as smf
+     	s1 = smf.Semaforo(self) #Chamando semaforo do módulo apelidado de smf
+
+     	classe Semaforo:
+     		def __init__(self):
+     			pass
+    	s_meu = Semaforo() #Chamando semaforo implementado aqui neste arquivo
+     	```
 
 ------------------------------------------------------------------------
  # 📝 Exercícios
  Agora vem a parte prática. Tente fazer os programas abaixo sem delegar todo o trabalho pra Inteligência Artificial Generativa. Caso necessário, procure no Google o que precisa. Se vc for mtooo n00b mesmo, blz, pode pedir pra IA um TRECHO de código (ex: "Como gero um número aleatório entre 0 e 5 com Python?"). Mas use com moderação. Essa é sua última chance de aprender algo!
  Para cada "programa" você pode criar um arquivo separado (ex: exe1.py, exe2.py etc) ou tacar tudo no mesmo arquivo (ex: exercicios.py) e ir separando os "programas" em funções ou classes. Vc decide.
  
- 1. Monte um programa que faça altas parada!
+ 1. **Revisão da revisão (passada):** Importe todos as funções do exercício da aula passada. Então faça um código simples que pergunta qual função o usuário quer executar e executa-a. Ex: 1 - Função Idade. 2 - Preço das frutas etc. Se ainda não tiver terminado a lista anterior, que tal terminá-la agora? :}
+ 2. **Dobro:** Crie uma função chamada dobro(valor) que receba um número e retorne o dobro dele. Depois, peça um número ao usuário com input() e use print() para mostrar o resultado.
+ 3. **Históricozinho:** Crie uma classe Empilhadeira com três métodos: empilhar(valor), desempilhar() e printar(). "Empilhar" adiciona "valor" a uma lista. "Desempilhar" deleta o último valor adicionado. "Printar" printa a lista de valores na tela (note que só esse printa coisas). Em seguida monte um método que peça via input ao usuário a operação no formato: "OP valor". Ex: "E 57" empilha o valor 57. "D" desempilha. "P" printa.
