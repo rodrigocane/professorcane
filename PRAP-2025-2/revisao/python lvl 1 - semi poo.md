@@ -26,9 +26,9 @@ Assim, o código fica mais legível, escalável e fácil de expandir sem bagunç
 		def print_soma(a:int, b:int): #Agora deixamos claro que o esperado é que "a" seja um int
 			print(a+b)
 			
-		soma(5, 7)     # imprime 12
-		soma("5", "7") # imprime "57", ou seja, o ":int" é uma DICA mas se vc desrespeitar, o Python tenta seguir a vida
-		soma("5", 7)   # ❌ Erro! TypeError: can only concatenate str (not "int") to str
+		print_soma(5, 7)     # imprime 12
+		print_soma("5", "7") # imprime "57", ou seja, o ":int" é uma DICA mas se vc desrespeitar, o Python tenta seguir a vida
+		print_soma("5", 7)   # ❌ Erro! TypeError: can only concatenate str (not "int") to str
 
 		def saudacao(nome: str, saudacao: str = "Olá"): #saudacao é um parâmetro opcional
 			print(f"{saudacao}, {nome}!")
