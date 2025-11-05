@@ -5,7 +5,7 @@ Assim, o código fica mais legível, escalável e fácil de expandir sem bagunç
 
 
 -   **Funções, classes, módulos**
-    -   Funções -> Funções encapsulam trechos de código reutilizáveis. Podem receber parâmetros e podem retornar valores
+    -   **Funções** -> Funções encapsulam trechos de código reutilizáveis. Podem receber parâmetros e podem retornar valores
     -   ```python
         def bom_dia(): #função sem parâmetros e sem retorno
             print("Bom dia")
@@ -21,8 +21,8 @@ Assim, o código fica mais legível, escalável e fácil de expandir sem bagunç
                 return #Aqui o return está sendo usado para interromper a função
             print(f"Bom dia {nome}")        
         ```
-    - Parâmetros e retornos: nível 2 -> Tipagem e opcional
-    - ```python
+    -   **Parâmetros e retornos**: nível 2 -> Tipagem e opcional
+    -   ```python
         def print_soma(a:int, b:int): #Agora deixamos claro que o esperado é que "a" seja um int
            print(a+b)
         soma(5, 7)     # imprime 12
@@ -37,21 +37,43 @@ Assim, o código fica mais legível, escalável e fácil de expandir sem bagunç
         def quadrado(num: int) -> int: #Parâmetro e Retorno tipado
           return num * num
 
-       # Parâmetros tipados, parâmetros opcionais, retorno tipado
-       def calc_media(notas: list[float], arredondar: bool = False, decimais: int = 2) -> float:
+        # Parâmetros tipados, parâmetros opcionais, retorno tipado
+        def calc_media(notas: list[float], arredondar: bool = False, decimais: int = 2) -> float:
            media = sum(notas) / len(notas)
            return round(media, decimais) if arredondar else media
         
-       notas = [8.5, 9.2, 7.9]
-       print(calc_media(notas))        # 8.533333333333333 => como se chamasse com (notas,False, 2)
-       print(calc_media(notas, True))  # 8.53 => como se chamasse com (notas,True, 2)
-       print(calc_media(notas, True,4))# 8.5333      
-      ```
-   - Parâmetros e retornos: nível 3
-   - ```python
-        def divisao_inteira(dividendo: int, quociente: int) -> (int, int)
-     ```
-   - ??? 
+        notas = [8.5, 9.2, 7.9]
+        print(calc_media(notas))        # 8.533333333333333 => como se chamasse com (notas,False, 2)
+        print(calc_media(notas, True))  # 8.53 => como se chamasse com (notas,True, 2)
+        print(calc_media(notas, True,4))# 8.5333      
+        ```
+    -   **Parâmetros e retornos**: nível 3 -> Retornando mais de um valor
+    -   ```python
+        #Pra dizer que o retorno é tupla de ints fazemos assim: tuple[int, int]
+        def divisao_inteira(dividendo: int, divisor: int) -> tuple[int, int]:
+            """Retorna o quociente e o resto da divisão inteira."""
+            quociente = dividendo // divisor #divisão inteira é com //
+            resto = dividendo % divisor #resto da divisão
+            return quociente, resto #Viu isso? dá pra retornar dois valores de uma vez!
+    
+        (d1, d2) = (10, 3) #E essa, tu sabia? Dá pra setar várias variáveis em uma linha
+        (res_quociente, res_resto) = divisao_inteira(d1,d2) #Inclusive se os valores vierem de uma função
+        print(f"{d1} / {d2} = {res_quociente} (com resto de {res_resto})") 
+        # Vai printar 10 / 3 = 3 (com resto de 1)     
+        ```
+   - 🌍 **Escopo de variáveis** -> Variáveis criadas dentro de funções só existem ali dentro. Use **global** para modificar uma variável de fora da função (com cuidado!).
+    -   ```python
+        def printar_contador():
+            print(contador)
+        
+        def inventar_contador():
+            contador = 9
+            print(contador)
+        
+        contador = 0
+        printar_contador()
+        inventar_contador()
+        ```
 
   👷👷👷👷
   👷 WIP 👷
